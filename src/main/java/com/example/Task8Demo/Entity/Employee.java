@@ -1,4 +1,4 @@
-package com.example.Task8Demo;
+package com.example.Task8Demo.Entity;
 
 
 import lombok.AllArgsConstructor;
