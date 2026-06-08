@@ -1,4 +1,4 @@
-package com.example.Task8Demo;
+package com.example.Task8Demo.Controller;
 
 import com.example.Task8Demo.Entity.Campaign;
 import com.example.Task8Demo.Service.CampaignManager;
@@ -15,11 +15,6 @@ public class CampaignController {
 
     @Autowired
     CampaignManager campaignManager;
-
-    @PostMapping()
-    public void loadData(){
-         campaignManager.loadData();
-    }
 
     @PostMapping("addCampaign")
     public String addCampaign(@RequestBody Campaign campaign){

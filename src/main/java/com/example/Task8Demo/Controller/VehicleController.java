@@ -1,4 +1,4 @@
-package com.example.Task8Demo;
+package com.example.Task8Demo.Controller;
 
 import com.example.Task8Demo.Entity.Vehicle;
 import com.example.Task8Demo.Service.VehicleManager;
@@ -14,10 +14,6 @@ import java.util.List;
 public class VehicleController {
     @Autowired
     VehicleManager vehicleManager;
-    @PostMapping("loadData")
-    public void loadData(){
-        vehicleManager.loadData();
-    }
 
     @PostMapping("addVehicle")
     public String addVehicle(@RequestBody Vehicle vehicle ){
