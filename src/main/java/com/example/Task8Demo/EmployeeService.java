@@ -42,7 +42,7 @@ public class EmployeeService {
     public static void main(String[] args) {
         load();
         displayEmployee();
-        addEmployee("reem", "E1066" , "IT");
+        addEmployee("Reem", "E106" , "IT");
         displayEmployee();
 
     }
