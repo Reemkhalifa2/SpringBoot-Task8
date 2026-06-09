@@ -10,17 +10,17 @@ import java.util.List;
 @Service
 public class VehicleManager {
     List<Vehicle> vehicleList = new ArrayList<>();
-    @PostConstruct
+    /*@PostConstruct
     public void loadData() {
-        vehicleList.add(new Vehicle("V101", "Toyota Corolla", 20.00));
-        vehicleList.add(new Vehicle("V102", "Nissan Sunny", 18.00));
-        vehicleList.add(new Vehicle("V103", "Hyundai Elantra", 22.00));
-    }
+        vehicleList.add(new Vehicle(101, "Toyota Corolla", 20.00));
+        vehicleList.add(new Vehicle(102, "Nissan Sunny", 18.00));
+        vehicleList.add(new Vehicle(103, "Hyundai Elantra", 22.00));
+    }*/
 
     public String addVehicle(Vehicle vehicle){
 
         for(Vehicle v : vehicleList){
-            if(v.getVehicleId().equalsIgnoreCase(vehicle.getVehicleId())){
+            if(v.getVehicleId().equals(vehicle.getVehicleId())){
                 return "Vehicle with this id already exist";
             }
         }
