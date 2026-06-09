@@ -1,7 +1,9 @@
 package com.example.Task8Demo.Service;
 
 import com.example.Task8Demo.Entity.Employee;
+import com.example.Task8Demo.Repository.EmployeeRepository;
 import jakarta.annotation.PostConstruct;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -10,34 +12,41 @@ import java.util.List;
 @Service
 public class EmployeeService {
 
+    @Autowired
+    EmployeeRepository employeeRepository;
+
      List<Employee> employeeList = new ArrayList<>();
 
-     @PostConstruct
-     public void load(){
-        employeeList.add(new Employee("E101","Ahmed","IT"));
-        employeeList.add(new Employee("E102","Fatma","HR"));
-        employeeList.add(new Employee("E103","Khawla","Operation"));
+
+    public Employee getById(Integer id) {
+        return employeeRepository.findById(id)
+                .orElse(null);
     }
 
-    public List<Employee> displayEmployee(){
-        return employeeList;
-    }
-    public  Boolean validateData(String id){
-        for(Employee emp : employeeList){
-            if(emp.getEmployeeId().equalsIgnoreCase(id)){
-                return false;
-            }
-        }
-        return true;
+    public Employee save(Employee employee){
+        return employeeRepository.save(employee);
     }
 
-    public String addEmployee(Employee employee) {
-        if (validateData(employee.getEmployeeId())) {
-            employeeList.add(employee);
-            return "Employee added successfully";
-        } else {
-            return "Employee with this Id already exist";
+    public List<Employee> getAllEmployee(){
+        return employeeRepository.findAll();
+    }
+
+    public String update(Integer id, Employee newEmployee) {
+        Employee emp = getById(id);
+        if(emp== null){
+            return "Employee not found!";
         }
+        emp.setEmployeeName(newEmployee.getEmployeeName());
+        emp.setDepartment(newEmployee.getDepartment());
+        return employeeRepository.save(emp) + "Updated!";
+    }
+
+    public String delete(Integer id) {
+        if(getById(id) == null){
+            return "Employee not found";
+        }
+        employeeRepository.delete(getById(id));
+        return "Deleted successfully";
     }
 
 
