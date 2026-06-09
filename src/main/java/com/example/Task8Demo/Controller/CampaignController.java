@@ -15,7 +15,7 @@ public class CampaignController {
     CampaignService campaignService;
 
     @PostMapping("add")
-    public Campaign save(Campaign campaign){
+    public Campaign save(@RequestBody Campaign campaign){
         return campaignService.save(campaign);
     }
 
@@ -24,18 +24,18 @@ public class CampaignController {
         return campaignService.getAll();
     }
 
-    @GetMapping("GetById")
-    public Campaign getById(Integer id){
+    @GetMapping("getById/{id}")
+    public Campaign getById(@PathVariable Integer id){
         return campaignService.getById(id);
     }
 
-    @PutMapping("update")
-    public Campaign update(Integer id , Campaign campaign){
+    @PutMapping("update/{id}")
+    public Campaign update(@PathVariable Integer id , @RequestBody Campaign campaign){
         return campaignService.update(id,campaign);
     }
 
-    @DeleteMapping("delete")
-    public String delete(Integer id){
+    @DeleteMapping("delete/{id}")
+    public String delete(@PathVariable Integer id){
         campaignService.delete(id);
         return "Deleted!";
     }
