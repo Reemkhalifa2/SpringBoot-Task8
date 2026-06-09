@@ -15,9 +15,6 @@ public class EmployeeService {
     @Autowired
     EmployeeRepository employeeRepository;
 
-     List<Employee> employeeList = new ArrayList<>();
-
-
     public Employee getById(Integer id) {
         return employeeRepository.findById(id)
                 .orElse(null);
@@ -27,7 +24,7 @@ public class EmployeeService {
         return employeeRepository.save(employee);
     }
 
-    public List<Employee> getAllEmployee(){
+    public List<Employee> getAll(){
         return employeeRepository.findAll();
     }
 
