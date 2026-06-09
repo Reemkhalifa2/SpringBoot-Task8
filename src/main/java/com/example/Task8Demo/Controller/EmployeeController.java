@@ -8,19 +8,26 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@RequestMapping("employee")
 public class EmployeeController {
+
     @Autowired
     EmployeeService employeeService;
-
 
     @PostMapping("addEmployee")
     public Employee addEmployee(@RequestBody Employee employee){
         return employeeService.save(employee);
 
     }
+
     @GetMapping("getAllEmployee")
     public List<Employee> displayEmployee(){
-        return employeeService.getAllEmployee();
+        return employeeService.getAll();
+    }
+
+    @GetMapping("getById/{Id}")
+    public Employee getById(@PathVariable Integer id){
+        return employeeService.getById(id);
     }
 
     @PutMapping("updateEmployee/{id}")
