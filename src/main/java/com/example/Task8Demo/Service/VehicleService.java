@@ -1,36 +1,49 @@
 package com.example.Task8Demo.Service;
 
 import com.example.Task8Demo.Entity.Vehicle;
-import jakarta.annotation.PostConstruct;
+import com.example.Task8Demo.Repository.VehicleRepository;
+import org.hibernate.generator.internal.VersionGeneration;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class VehicleManager {
-    List<Vehicle> vehicleList = new ArrayList<>();
-    /*@PostConstruct
-    public void loadData() {
-        vehicleList.add(new Vehicle(101, "Toyota Corolla", 20.00));
-        vehicleList.add(new Vehicle(102, "Nissan Sunny", 18.00));
-        vehicleList.add(new Vehicle(103, "Hyundai Elantra", 22.00));
-    }*/
+public class VehicleService {
+    @Autowired
+    VehicleRepository vehicleRepository;
 
-    public String addVehicle(Vehicle vehicle){
-
-        for(Vehicle v : vehicleList){
-            if(v.getVehicleId().equals(vehicle.getVehicleId())){
-                return "Vehicle with this id already exist";
-            }
-        }
-
-        vehicleList.add(vehicle);
-        return "Vehicle added successfully!";
+    public Vehicle save(Vehicle vehicle){
+        return vehicleRepository.save(vehicle);
     }
 
-    public List<Vehicle> displayAllVehicle(){
-        return vehicleList;
+    public Vehicle getById(Integer id){
+        return vehicleRepository.findById(id).orElse(null);
+    }
+
+    public List<Vehicle> getAll(){
+        return vehicleRepository.findAll();
+    }
+
+    public String update(Integer id, Vehicle newVehicle){
+        Vehicle vehicle = getById(id);
+        if(vehicle == null){
+            return "Vehicle not found!";
+        }
+        vehicle.setVehicleModel(newVehicle.getVehicleModel());
+        vehicle.setRentalPricePerDay(newVehicle.getRentalPricePerDay());
+        return vehicleRepository.save(vehicle) + "Updated!";
+
+    }
+
+    public String delete(Integer id){
+        Vehicle vehicle = getById(id);
+        if(vehicle == null){
+            return "Vehicle not found!";
+        }
+        vehicleRepository.delete(vehicle);
+        return  "Deleted!";
     }
 
 
