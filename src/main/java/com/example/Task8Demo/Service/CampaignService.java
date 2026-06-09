@@ -1,34 +1,43 @@
 package com.example.Task8Demo.Service;
 
 import com.example.Task8Demo.Entity.Campaign;
+import com.example.Task8Demo.Repository.CampaignRepository;
 import jakarta.annotation.PostConstruct;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class CampaignManager {
+public class CampaignService {
 
-    List<Campaign> campaignList = new ArrayList<>();
+    @Autowired
+    CampaignRepository campaignRepository;
 
-    @PostConstruct
-    public void loadData(){
-        campaignList.add(new Campaign(101, "Summer Sale", "Instagram",500.0));
-        campaignList.add(new Campaign(102, "Black Friday", "Google Ads",1000.0));
-        campaignList.add(new Campaign(103, "Email Promo", "Email",500.0));
+    public Campaign save(Campaign campaign){
+        return campaignRepository.save(campaign);
     }
 
-    public String addCampaign(Campaign campaign){
-        for(Campaign c : campaignList){
-            if(c.getCampaignId().equals(campaign.getCampaignId())){
-                return "Campaign with this id already exist";
-            }
-        }
-        campaignList.add(campaign);
-        return "Campaign added successfully!";
+    public List<Campaign> getAll(){
+        return campaignRepository.findAll();
     }
-    public List<Campaign> displayCampaign(){
-        return campaignList;
+
+    public Campaign getById(Integer id){
+        return campaignRepository.findById(id).orElseThrow(() -> new RuntimeException("Campaign not found"));
     }
+
+    public Campaign update(Integer id , Campaign newCampaign){
+        Campaign campaign = getById(id);
+        campaign.setCampaignName(newCampaign.getCampaignName());
+        campaign.setBudget(newCampaign.getBudget());
+        campaign.setPlatform(newCampaign.getPlatform());
+        return campaignRepository.save(campaign);
+    }
+
+    public void delete(Integer id){
+        Campaign campaign = getById(id);
+        campaignRepository.delete(campaign);
+    }
+
 }
