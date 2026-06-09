@@ -14,12 +14,22 @@ public class EmployeeController {
 
 
     @PostMapping("addEmployee")
-    public String addEmployee(@RequestBody Employee employee){
-        return employeeService.addEmployee(employee);
+    public Employee addEmployee(@RequestBody Employee employee){
+        return employeeService.save(employee);
 
     }
-    @GetMapping("displayEmployee")
+    @GetMapping("getAllEmployee")
     public List<Employee> displayEmployee(){
-        return employeeService.displayEmployee();
+        return employeeService.getAllEmployee();
+    }
+
+    @PutMapping("updateEmployee/{id}")
+    public String update(@PathVariable Integer id, @RequestBody Employee employee) {
+        return employeeService.update(id, employee);
+    }
+
+    @DeleteMapping("deleteEmployee/{id}")
+    public String delete(@PathVariable Integer id) {
+        return employeeService.delete(id);
     }
 }
