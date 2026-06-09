@@ -17,7 +17,7 @@ public class EmployeeService {
 
     public Employee getById(Integer id) {
         return employeeRepository.findById(id)
-                .orElse(null);
+                .orElseThrow(() -> new RuntimeException("Employee not found"));
     }
 
     public Employee save(Employee employee){
@@ -28,22 +28,15 @@ public class EmployeeService {
         return employeeRepository.findAll();
     }
 
-    public String update(Integer id, Employee newEmployee) {
+    public Employee update(Integer id, Employee newEmployee) {
         Employee emp = getById(id);
-        if(emp== null){
-            return "Employee not found!";
-        }
         emp.setEmployeeName(newEmployee.getEmployeeName());
         emp.setDepartment(newEmployee.getDepartment());
-        return employeeRepository.save(emp) + "Updated!";
+        return employeeRepository.save(emp);
     }
 
-    public String delete(Integer id) {
-        if(getById(id) == null){
-            return "Employee not found";
-        }
+    public void delete(Integer id) {
         employeeRepository.delete(getById(id));
-        return "Deleted successfully";
     }
 
 

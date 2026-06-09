@@ -19,29 +19,24 @@ public class VehicleService {
     }
 
     public Vehicle getById(Integer id){
-        return vehicleRepository.findById(id).orElse(null);
+        return vehicleRepository.findById(id).orElseThrow(()-> new RuntimeException("Vehicle Not Found!"));
     }
 
     public List<Vehicle> getAll(){
         return vehicleRepository.findAll();
     }
 
-    public String update(Integer id, Vehicle newVehicle){
+    public Vehicle update(Integer id, Vehicle newVehicle){
         Vehicle vehicle = getById(id);
-        if(vehicle == null){
-            return "Vehicle not found!";
-        }
+
         vehicle.setVehicleModel(newVehicle.getVehicleModel());
         vehicle.setRentalPricePerDay(newVehicle.getRentalPricePerDay());
-        return vehicleRepository.save(vehicle) + "Updated!";
+        return vehicleRepository.save(vehicle) ;
 
     }
 
     public String delete(Integer id){
         Vehicle vehicle = getById(id);
-        if(vehicle == null){
-            return "Vehicle not found!";
-        }
         vehicleRepository.delete(vehicle);
         return  "Deleted!";
     }
