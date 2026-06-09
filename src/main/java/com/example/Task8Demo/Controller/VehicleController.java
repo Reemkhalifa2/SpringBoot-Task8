@@ -1,27 +1,42 @@
 package com.example.Task8Demo.Controller;
 
 import com.example.Task8Demo.Entity.Vehicle;
-import com.example.Task8Demo.Service.VehicleManager;
+import com.example.Task8Demo.Service.VehicleService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
+@RequestMapping("vehicle")
 public class VehicleController {
     @Autowired
-    VehicleManager vehicleManager;
+    VehicleService vehicleService;
 
-    @PostMapping("addVehicle")
-    public String addVehicle(@RequestBody Vehicle vehicle ){
-        return vehicleManager.addVehicle(vehicle);
+    @PostMapping("add")
+    public Vehicle save(@RequestBody Vehicle vehicle ){
+        return vehicleService.save(vehicle);
     }
 
-    @GetMapping("vehicles")
-    public List<Vehicle> displayVehicle(){
-        return vehicleManager.displayAllVehicle();
+    @GetMapping("getAll")
+    public List<Vehicle> getAll(){
+        return vehicleService.getAll();
     }
+
+    @GetMapping("getById/{id}")
+    public Vehicle getById(@PathVariable Integer id){
+        return vehicleService.getById(id);
+    }
+
+    @PutMapping("update/{id}")
+    public String update(@PathVariable Integer id , @RequestBody Vehicle vehicle){
+        return vehicleService.update(id,vehicle);
+    }
+
+    @DeleteMapping("delete/{id}")
+
+    public String delete(@PathVariable Integer id){
+        return vehicleService.delete(id);
+    }
+
 }
