@@ -19,12 +19,16 @@ public class EmployeeService {
     EmployeeRepository employeeRepository;
 
     public Employee getById(Integer id) {
-        return employeeRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Employee not found"));
+        return employeeRepository.getById(id);
+    }
+
+    public Employee getByName(String name) {
+        return employeeRepository.getByName(name);
     }
 
     public Employee save(Employee employee){
-
+        employee.setCreationDate(new Date());
+        employee.setIsActive(true);
         return employeeRepository.save(employee);
     }
 
