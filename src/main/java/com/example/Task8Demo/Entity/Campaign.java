@@ -1,12 +1,11 @@
 package com.example.Task8Demo.Entity;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
-@Getter
-@Setter
-
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 public class Campaign extends ParentEntity {
     private String campaignName;
