@@ -35,7 +35,7 @@ public class CampaignController {
     }
 
     @PutMapping("update/{id}")
-    public Campaign update(@PathVariable Integer id , @RequestBody Campaign campaign){
+    public Campaign update(@PathVariable Integer id , @RequestBody Campaign campaign)throws Exception{
         return campaignService.update(id,campaign);
     }
 
