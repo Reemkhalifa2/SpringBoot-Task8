@@ -29,15 +29,20 @@ public class CampaignController {
         return campaignService.getById(id);
     }
 
+    @GetMapping("getByName/{name}")
+    public Campaign getByName(@PathVariable String name){
+        return campaignService.getByName(name);
+    }
+
     @PutMapping("update/{id}")
     public Campaign update(@PathVariable Integer id , @RequestBody Campaign campaign){
         return campaignService.update(id,campaign);
     }
 
     @DeleteMapping("delete/{id}")
-    public String delete(@PathVariable Integer id){
-        campaignService.delete(id);
-        return "Deleted!";
+    public Boolean delete(@PathVariable Integer id){
+        return campaignService.delete(id);
+
     }
 
 }
