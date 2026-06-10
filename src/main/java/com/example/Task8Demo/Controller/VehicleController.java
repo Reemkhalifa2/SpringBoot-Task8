@@ -28,6 +28,11 @@ public class VehicleController {
         return vehicleService.getById(id);
     }
 
+    @GetMapping("getById/{vehicleModel}")
+    public List<Vehicle> getById(@PathVariable String vehicleModel){
+        return vehicleService.getByModel(vehicleModel);
+    }
+
     @PutMapping("update/{id}")
     public Vehicle update(@PathVariable Integer id , @RequestBody Vehicle vehicle){
         return vehicleService.update(id,vehicle);
@@ -35,7 +40,7 @@ public class VehicleController {
 
     @DeleteMapping("delete/{id}")
 
-    public String delete(@PathVariable Integer id){
+    public Boolean delete(@PathVariable Integer id){
         return vehicleService.delete(id);
     }
 
