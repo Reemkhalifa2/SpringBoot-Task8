@@ -2,11 +2,10 @@ package com.example.Task8Demo.Service;
 
 import com.example.Task8Demo.Entity.Vehicle;
 import com.example.Task8Demo.Repository.VehicleRepository;
-import org.hibernate.generator.internal.VersionGeneration;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -15,6 +14,8 @@ public class VehicleService {
     VehicleRepository vehicleRepository;
 
     public Vehicle save(Vehicle vehicle){
+        vehicle.setIsActive(true);
+        vehicle.setCreationDate(new Date());
         return vehicleRepository.save(vehicle);
     }
 
@@ -23,22 +24,29 @@ public class VehicleService {
     }
 
     public List<Vehicle> getAll(){
-        return vehicleRepository.findAll();
+        return vehicleRepository.getAll();
+    }
+    public List<Vehicle> getByModel(String vehicleModel){
+        return vehicleRepository.getByModel(vehicleModel);
     }
 
     public Vehicle update(Integer id, Vehicle newVehicle){
         Vehicle vehicle = getById(id);
-
         vehicle.setVehicleModel(newVehicle.getVehicleModel());
         vehicle.setRentalPricePerDay(newVehicle.getRentalPricePerDay());
+        vehicle.setUpdateDate(new Date());
         return vehicleRepository.save(vehicle) ;
 
     }
 
-    public String delete(Integer id){
+    public Boolean delete(Integer id){
         Vehicle vehicle = getById(id);
-        vehicleRepository.delete(vehicle);
-        return  "Deleted!";
+        if (vehicle != null){
+            vehicle.setIsActive(false);
+            vehicleRepository.save(vehicle);
+            return true;
+        }
+        return false;
     }
 
 
