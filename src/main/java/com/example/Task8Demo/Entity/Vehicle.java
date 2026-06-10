@@ -11,14 +11,10 @@ import lombok.ToString;
 @ToString
 
 @Entity
-public class Vehicle {
+public class Vehicle extends ParentEntity{
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer vehicleId;
     private String vehicleModel;
     private Double rentalPricePerDay;
-
     @ManyToOne
     private Employee employee;
 }
