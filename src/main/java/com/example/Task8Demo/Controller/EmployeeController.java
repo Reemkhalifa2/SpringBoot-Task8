@@ -14,13 +14,13 @@ public class EmployeeController {
     @Autowired
     EmployeeService employeeService;
 
-    @PostMapping("addEmployee")
+    @PostMapping("add")
     public Employee addEmployee(@RequestBody Employee employee){
         return employeeService.save(employee);
 
     }
 
-    @GetMapping("getAllEmployee")
+    @GetMapping("getAll")
     public List<Employee> displayEmployee(){
         return employeeService.getAll();
     }
@@ -31,7 +31,7 @@ public class EmployeeController {
     }
 
     @PutMapping("updateEmployee/{id}")
-    public Employee update(@PathVariable Integer id, @RequestBody Employee employee) {
+    public Employee update(@PathVariable Integer id, @RequestBody Employee employee) throws Exception{
         return employeeService.update(id, employee);
     }
 
