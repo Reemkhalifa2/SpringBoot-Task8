@@ -30,6 +30,11 @@ public class EmployeeController {
         return employeeService.getById(id);
     }
 
+    @GetMapping("getByName/{name}")
+    public Employee getById(@PathVariable String name){
+        return employeeService.getByName(name);
+    }
+
     @PutMapping("updateEmployee/{id}")
     public Employee update(@PathVariable Integer id, @RequestBody Employee employee) throws Exception{
         return employeeService.update(id, employee);
