@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -16,16 +17,21 @@ public class CampaignService {
     CampaignRepository campaignRepository;
 
     public Campaign save(Campaign campaign){
+        campaign.setCreationDate(new Date());
+        campaign.setIsActive(true);
         return campaignRepository.save(campaign);
     }
 
     public List<Campaign> getAll(){
-        return campaignRepository.findAll();
+        return campaignRepository.getAll();
     }
 
     public Campaign getById(Integer id){
-        //return campaignRepository.findById(id).get();
-        return campaignRepository.findById(id).orElseThrow(() -> new RuntimeException("Campaign not found"));
+        return campaignRepository.getById(id);
+    }
+
+    public Campaign getByName(String name){
+        return campaignRepository.getByName(name);
     }
 
     public Campaign update(Integer id , Campaign newCampaign){
@@ -33,12 +39,18 @@ public class CampaignService {
         campaign.setCampaignName(newCampaign.getCampaignName());
         campaign.setBudget(newCampaign.getBudget());
         campaign.setPlatform(newCampaign.getPlatform());
+        campaign.setUpdateDate(new Date());
         return campaignRepository.save(campaign);
     }
 
-    public void delete(Integer id){
+    public Boolean delete(Integer id){
         Campaign campaign = getById(id);
-        campaignRepository.delete(campaign);
+        if (campaign != null){
+            campaign.setIsActive(false);
+            campaignRepository.save(campaign);
+            return true;
+        }
+        return false;
     }
 
 }
