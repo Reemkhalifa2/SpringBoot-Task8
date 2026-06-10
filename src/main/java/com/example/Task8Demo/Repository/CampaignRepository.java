@@ -12,12 +12,12 @@ import java.util.List;
 @Repository
 public interface CampaignRepository extends JpaRepository<Campaign,Integer> {
 
-    @Query("SELECT c FROM Campaign WHERE c.isActive=true ")
+    @Query("SELECT c FROM Campaign c WHERE c.isActive=true ")
     List<Campaign> getAll();
 
-    @Query("SELECT c FROM Campaign WHERE c.isActive=true and c.id=:id")
+    @Query("SELECT c FROM Campaign c WHERE c.isActive=true and c.id=:id")
     Campaign getById(@Param("id") Integer id);
 
-    @Query("SELECT c FROM Campaign WHERE c.isActive=true and c.campaignName=:campaignName")
+    @Query("SELECT c FROM Campaign c WHERE c.isActive=true and c.campaignName=:campaignName")
     Campaign getByName(@Param("campaignName") String campaignName);
 }

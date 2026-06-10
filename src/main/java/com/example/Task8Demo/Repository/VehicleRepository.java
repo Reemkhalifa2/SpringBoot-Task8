@@ -11,13 +11,13 @@ import java.util.List;
 
 @Repository
 public interface VehicleRepository extends JpaRepository<Vehicle,Integer> {
-    @Query("SELECT v FROM Vehicle WHERE v.isActive=true ")
+    @Query("SELECT v FROM Vehicle v WHERE v.isActive=true ")
     List<Vehicle> getAll();
 
-    @Query("SELECT v FROM Vehicle WHERE v.isActive=true and v.id=:id")
+    @Query("SELECT v FROM Vehicle v WHERE v.isActive=true and v.id=:id")
     Vehicle getById(@Param("id") Integer id);
 
-    @Query("SELECT v FROM Vehicle WHERE v.isActive=true and v.vehicleModel=:vehicleModel")
+    @Query("SELECT v FROM Vehicle v WHERE v.isActive=true and v.vehicleModel=:vehicleModel")
     List<Vehicle> getByModel(@Param("vehicleModel") String vehicleModel);
 
 

@@ -17,6 +17,6 @@ public interface EmployeeRepository extends JpaRepository<Employee,Integer> {
     @Query("SELECT e FROM Employee e WHERE e.id=:id AND e.isActive = true")
     Employee getById(@Param(value = "id") Integer id);
 
-    @Query("SELECT e FROM Employee e WHERE e.name=:name AND e.isActive = true")
-    Employee getByName(@Param(value = "name") String name);
+    @Query("SELECT e FROM Employee e WHERE e.employeeName=:employeeName AND e.isActive = true")
+    Employee getByName(@Param(value = "employeeName") String employeeName);
 }
