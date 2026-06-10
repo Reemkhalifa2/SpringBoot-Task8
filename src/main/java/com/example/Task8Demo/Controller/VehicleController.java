@@ -34,7 +34,7 @@ public class VehicleController {
     }
 
     @PutMapping("update/{id}")
-    public Vehicle update(@PathVariable Integer id , @RequestBody Vehicle vehicle){
+    public Vehicle update(@PathVariable Integer id , @RequestBody Vehicle vehicle) throws Exception{
         return vehicleService.update(id,vehicle);
     }
 

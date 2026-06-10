@@ -30,8 +30,12 @@ public class VehicleService {
         return vehicleRepository.getByModel(vehicleModel);
     }
 
-    public Vehicle update(Integer id, Vehicle newVehicle){
+    public Vehicle update(Integer id, Vehicle newVehicle) throws Exception{
+
         Vehicle vehicle = getById(id);
+        if(vehicle == null){
+            throw new Exception("vehicle not found");
+        }
         vehicle.setVehicleModel(newVehicle.getVehicleModel());
         vehicle.setRentalPricePerDay(newVehicle.getRentalPricePerDay());
         vehicle.setUpdateDate(new Date());
