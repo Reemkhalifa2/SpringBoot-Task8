@@ -24,6 +24,7 @@ public class CampaignService {
     }
 
     public Campaign getById(Integer id){
+        //return campaignRepository.findById(id).get();
         return campaignRepository.findById(id).orElseThrow(() -> new RuntimeException("Campaign not found"));
     }
 
