@@ -13,8 +13,6 @@ import java.util.List;
 
 @Service
 public class EmployeeService {
-    List<Employee> deletedEmployee = new ArrayList<>();
-
     @Autowired
     EmployeeRepository employeeRepository;
 
