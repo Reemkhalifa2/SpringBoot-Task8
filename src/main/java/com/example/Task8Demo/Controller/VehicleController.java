@@ -29,7 +29,7 @@ public class VehicleController {
     }
 
     @GetMapping("getById/{vehicleModel}")
-    public List<Vehicle> getById(@PathVariable String vehicleModel){
+    public List<Vehicle> getByModel(@PathVariable String vehicleModel){
         return vehicleService.getByModel(vehicleModel);
     }
 
